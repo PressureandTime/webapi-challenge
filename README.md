@@ -24,15 +24,78 @@ In this challenge, create a web API around the following resources: `Projects` a
 
 Demonstrate your understanding of this Sprint's concepts by answering the following free-form questions. Edit this document to include your answers after each question. Make sure to leave a blank line above and below your answer so it is clear and easy to read by your project manager.
 
+
+
 - [ ] Mention two parts of Express that you learned about this week.
+const express = require('express');
+const server = express();
+server.listen(3000, () =>
+  console.log('Example app listening on port 3000!'),
+);
+
+
+
 
 - [ ] Describe Middleware?
+Middleware functions are functions that have access to the request object (req), the response object (res), and the next middleware function in the application’s request-response cycle. The next middleware function is commonly used by a variable named next.
+
+
+
 
 - [ ] Describe a Resource?
+Everything is a resource, each resource is accessible via a unique URI. Resources can have multiple representations.
+Communication is done over a stateless protocol (HTTP). Management of resources is done via HTTP methods.
+
+
 
 - [ ] What can the API return to help clients know if a request was successful?
+HTTP status codes are divided into classes grouped by the first digit of the number. The available classes are:
+
+    1xx - Informational responses
+    2xx - Success
+    3xx - Redirection
+    4xx - Client errors
+    5xx - Server errors
+
+2xx - Success class:   
+These status codes are returned when the server succeeded in processing the request. In the previous article, we defined only the happy-path responses of the API, i.e., responses for correct requests. This means all responses we saw had status codes from this class. Commonly used status codes here are 200 OK for regular successful requests with a response body, 201 Created for successful requests that created some resource, and 204 No Content for successful requests without a response body.
+
+
 
 - [ ] How can we partition our application into sub-applications?
+One good example of partition
+
+var express = require("express");
+
+// sub-apps
+// --------
+
+const sub1 = express();
+sub1.get("/", function(req, res){
+  res.json({status: "welcome"});
+});
+
+const sub2 = express();
+sub2.get("/", function(req, res){
+  res.json({
+    foo: "bar",
+    baz: "random"
+  });
+});
+
+// main app/server
+// --------
+
+const server = express();
+
+server.use("/foo", sub2);
+server.use("/", sub1);
+
+// Exports
+// -------
+
+module.exports = app;
+
 
 ## Project Setup
 

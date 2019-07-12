@@ -28,6 +28,18 @@ router.get('/:id', async (req, res) => {
   }
 });
 
+router.get('/:id', async (req, res) => {
+  try {
+    const project = await projectDb.getProjectActions(req.params.id);
+    res.status(200).json(project);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      message: 'Error retrieving the project with that ID'
+    });
+  }
+});
+
 router.post('/', async (req, res) => {
   try {
     const project = await projectDb.insert(req.body);
