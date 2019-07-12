@@ -6,8 +6,8 @@ const projectRouter = require('./data/project/projectRouter');
 const server = express();
 server.use(express.json());
 
- server.use('/action', actionRouter);
- server.use('/project', projectRouter);
+server.use('/action', actionRouter);
+server.use('/project', projectRouter);
 
 
 server.get('/', (req, res) => {
