@@ -1,3 +1,23 @@
+const express = require('express');
+
+const actionRouter = require('./data/action/actionRouter');
+const projectRouter = require('./data/project/projectRouter');
+
+const server = express();
+server.use(express.json());
+
+server.use('/action', actionRouter);
+server.use('/project', projectRouter);
+
+
+server.get('/', (req, res) => {
+  res.send(`<h2>WELCOME</h2>`);
+});
+
+server.listen(5000, () => {
+  console.log('\n* Server Running on http://localhost:5000 *\n');
+});
+
 /*
 play this: https://www.youtube.com/watch?v=d-diB65scQU
 
